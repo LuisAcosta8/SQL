@@ -1,0 +1,675 @@
+#Structures Query Language
+#Comandos SQL
+
+# DDL (Data Definition Language)
+* CREATE        --->    Crea
+CREATE DATABASE NOMBREBASE
+
+CREATE TABLE NOMBRE(CAMPO TIPODEDATO, CAMPO TIPODEDATO, CAMPO TIPODEDATO)
+
+-
+-Tipos de tablas
+* Base
+* Derivadas
+* Vistas
+
+-Tipos de datos
+* Predefinido
+** Cadena
+** Númerico
+** Fecha/Hora
+** Booleano
+* Construido
+* Definido por el usuario
+
+* ALTER         --->    Modifica
+
+**ALTER TABLE NOMBREDELATABLA ACCIÓN 
+-ALTER TABLE NOMBREDELATABLA ACCIÓN NOMBREACCIÓN TIPODEDATO
+
+
+* DROP          --->    Elimina
+DROP ELEMENTO NOMBREDELELEMENTO
+* TRUNCATE      --->    Borrar todas las filas
+
+#DML (Data Manipulation Language)
+-Campos tipo si y no utilizan TRUE o FALSE, V o F ó -1 o 0
+* SELECT       --->    
+
+**Crear una tabla a partir de otra 
+- SELECT * INTO TABLANUEVA FROM TABLAREFERENCIA CONDICIÓN
+* INSERT       --->    
+* UPDATE       --->    Actualiza datos en la tabla
+UPDATE TABLA SET CAMPO = DATOSNUEVOS CONDICION
+**No se puede deshacer la acción
+* DELETE       --->    Borrar registros, sino se ingresan condiciones se borraran todos los registros
+-DELETE FROM TABLA CONDICIONES
+
+#DCL
+* GRANT
+* REVOKE
+
+#TCL
+* COMMIT
+* ROLLBACK
+* SAVEPOINT
+
+
+#CLAUSULAS
+* FROM       --->    Especifica la tabla de la que se quieren obtener los registros
+* WHERE      --->    Especifica las condiciones o criterios de los registros seleccionados   
+* GROUP BY   --->    Agrupa los registros seleccionados en funcion de un campo
+* HAVING     --->    Especifica las condiciones o criterios que deben cumplir los grupos
+* ORDER BY   --->    Ordena los registros seleccionados en funcion de un campo
+- No se puede ordernas por dos criterios a la vez pero se pueden establecer varios campos de ordenacion, no a la vez
+*AS
+-En access se utilizan '' para renombrar mientras que en mysql no es necesario
+
+#OPERADORES
+**COMPARACIÓN
+
+* <             --->    Menor que
+* >             --->    Mayor que
+* =             --->    Igual
+* >=            --->    Mayor o igual que
+* <=            --->    Menor o igual que
+* <>            --->    Distinto que
+* BETWEEN       --->    Entre. Utilizado para especificar rangos de valores
+* LIKE          --->    Como. Utilizado con caracteres comodin (?*)
+* In            --->    En. Para especificar registros en un campo en concreto
+* NOT IN            --->    No esta
+* ANY            --->    Cualquiera
+* ALL            --->    Todos
+
+**LÓGICOS
+
+* AND    --->    Y Lógico
+* OR     --->    O Lógico
+* NOT    --->    Negación lógico
+
+#FUNCIONES DE AGREGADO
+
+* AVG     --->    Calcula el promedio de un campo
+* COUNT   --->    Cuenta los registros de un campo
+* SUM     --->    Suma los valores de un campo
+* MAX     --->    Devuelve el máximo de un campo
+* MIN     --->    Devuelve el mínimo de un campo
+
+#INSTRUCCION SQL
+INSTRUCCION SQL = comando + clausulas + operadores + funciones
+
+*No es necesario que una instruccion tenga los 4 componentes
+
+#CONSULTAS DE AGRUPACIÓN O TOTALES
+-Realizan calculos por grupos
+-Necesita un campo de agrupacion y un campo de calculo; si se incluye un tercer campo, este devolvera el primer articulo que encuentre dada la condicion
+-Cambiar Where por having
+
+#CONSULTAS DE CALCULO
+* Now()          --->   Devuelve el dia y la hora actuales
+* Datediff('PARAMETRO PARA DIFERENCIAR','FECHA INICIAL','FECHA FINAL')     --->   Devuelve la diferencia entre dos fechas
+ En MYSQL
+ No se puede usar el alias
+ - DATEDIFF(fecha inicial, fecha)
+ En access
+ Se puede utilizar el alias
+ - DATEDIFF("YYYY OR M OR D", FECHAINICIAL, FECHA FINAL)
+* Date_format()  --->   Formatear resultados
+En MYSQL
+-DATE_FORMAT(DATE, FORMAT) 
+%a	Abbreviated weekday name (Sun to Sat)
+%b	Abbreviated month name (Jan to Dec)
+%c	Numeric month name (0 to 12)
+%D	Day of the month as a numeric value, followed by suffix (1st, 2nd, 3rd, ...)
+%d	Day of the month as a numeric value (01 to 31)
+%e	Day of the month as a numeric value (0 to 31)
+%f	Microseconds (000000 to 999999)
+%H	Hour (00 to 23)
+%h	Hour (00 to 12)
+%I	Hour (00 to 12)
+%i	Minutes (00 to 59)
+%j	Day of the year (001 to 366)
+%k	Hour (0 to 23)
+%l	Hour (1 to 12)
+%M	Month name in full (January to December)
+%m	Month name as a numeric value (00 to 12)
+%p	AM or PM
+%r	Time in 12 hour AM or PM format (hh:mm:ss AM/PM)
+%S	Seconds (00 to 59)
+%s	Seconds (00 to 59)
+%T	Time in 24 hour format (hh:mm:ss)
+%U	Week where Sunday is the first day of the week (00 to 53)
+%u	Week where Monday is the first day of the week (00 to 53)
+%V	Week where Sunday is the first day of the week (01 to 53). Used with %X
+%v	Week where Monday is the first day of the week (01 to 53). Used with %x
+%W	Weekday name in full (Sunday to Saturday)
+%w	Day of the week where Sunday=0 and Saturday=6
+%X	Year for the week where Sunday is the first day of the week. Used with %V
+%x	Year for the week where Monday is the first day of the week. Used with %v
+%Y	Year as a numeric, 4-digit value
+%y	Year as a numeric, 2-digit value
+
+En ACCESS
+- FORMAT(FUNCIÓN, FORMAT)
+General Date	Displays date based on your system settings
+Long Date	Displays date based on your system's long date setting
+Medium Date	Displays date based on your system's medium date setting
+Short Date	Displays date based on your system's short date setting
+Long Time	Displays time based on your system's long time setting
+Medium Time	Displays time based on your system's medium time setting
+Short Time	Displays time based on your system's short time setting
+
+#CONSULTAS MULTITABLA / CONSULTAS DE UNIÓN
+* UNIÓN EXTERNA     
+* UNION             --->    Permite unir en una unica consulta varias tablas
+**Ambas tablas deben tener el mismo numero de campos
+**Los campos deben tener tipos de datos compatibles
+**Nombre de campo igual o diferente
+**El nombre del campo que aparecera es el de la tabla 1
+**si hay un registro repetido lo muestra solo una vez
+
+
+* UNION ALL         --->    une todo pero si hay un registro repetido multiples veces lo muestra todas
+*- EXCEPT            --->    
+*- INTERSECT         --->    
+*- MINUS             --->    
+
+* A pesar de que se encuentran dentro del standar general aql no todos los gestores la tienen mysql y access no admiten estas funciones
+
+*UNIÓN INTERNA
+-Realizar consultas entre tablas que esten relacionadas
+* INNER JOIN        --->    Refleja informacion comun que hay en ambas tablas
+**Se debe especificar el campo por el cual se relacionan
+ex. select * from tabla inner join tabla2 on tabla.campoquerelaciona = tabla2.campoquerelaciona
+##OUTER JOINS
+* LEFT JOIN         --->    Devuelve registros que estan en ambas tablas + todos los registros de la tabla izquierda
+* RIGHT JOIN       --->    Devuelve todos los registros de la tabla derecha + los registros que estan en ambas tablas
+*INTEGRIDAD REFERENCIAL
+
+#CONSULTAS DE ACCION 
+-Modifica informacion que hay dentro de las tablas
+* Actualización          --->    UPDATE
+* Creación de tabla      --->    CREATE TABLE OR SELECT INTO
+* Eliminación            --->    DELETE CON CONSULTAS DE PREDICADO
+* Datos anexados         --->    INSERT INTO
+
+#CONSULTAS DE PREDICADO
+* DISTINC            --->    No muestra informacion repetida
+* DISTINC ROW        --->    No muestra registros COMPLETOS repetidos
+
+#CONSULTAS DE REFERENCIAS CRUZADAS
+-MYSQL NO admite este tipo de consultas
+- Son como tablas dinámicas de excel
+* PIVOT            --->    ZONA DE COLUMNAS
+* TRANSFORM        --->    ZONA DE TOTALES
+* GROUP BY         --->    ZONA DE FILAS
+-Para dos o mas tablas se necesita **Una consulta de seleccion con los campos a visualizar
+**Guardar la consulta de selección
+** Crear la referencia cruzada
+
+#INDICES
+* CLAVE PRIMARIA
+- Multiples columnas
+- Cada valor es unico
+- No null
+* ORDINARIOS
+- Permite duplicados
+- Sí null
+* UNICOS
+- No permiten duplicados
+- Sí null
+* COMPUESTOS
+- Multiples columnas
+- Sí null
+
+#ELIMINAR INDICES
+- ALTER TABLE EJEMPLO DROP CONSTRAINT Index_1037F80F_8600_4034        --->    PRIMARY KEY
+CONSTARIN - Sirve para access, sql server, oracle
+
+En MYSQL
+ALTER TABLE NOMBREDELATABLA DROP PRIMARY KEY
+
+- DROP INDEX NOMBREDELINIDICE ON TABLA         --->    INDICE != PRIMARY KEY
+
+#TRIGGERS (DISPARADORES) MYSQL
+- Evento: accion que se desencadena cuando ocurre algo en una tabla
+- Ocurre cuando insertas, actualizas o eliminas informacion en alguna tabla
+- Se pueden ejecutar antes o despues
+- Siempre se ocupan tablas de respaldo
+
+CREATE TRIGGER TABLENAME_AoBIoDoU AFTER/BEFORE INSERT/UPDATE/DELETE ON TABLENAME  FOR EACH (ROW/STATEMENT) INSERT/DELETE/UPDATE INTO TABLE(FIELD/FIELDS) VALUES (OLD.VALUE/OLD.VALUES,NEW.VALUE/NEW.VALUES)
+CURRENT_USER() --> PARA VER EL USUARIO
+
+
+
+TABLENAME_AoBIoDoU POR CONVENCION AFTERoBEFOREINSERToDELETEoUPDATE
+
+
+* Concat()            --->    Concatenar cadenas de datos
+
+
+**Round(EXPRESIÓN, NÚMERO DE DECIMALES)
+**Truncate
+
+#EN MYSQL
+-Exportar a excel
+-Cambiar extension*opendocument para poder abrir en mysql
+-Checar que los formatos de datos coincidan para que mysql pueda reconocerlos
+*Precios en formato moneda
+*Fechas en aaaa-mm-dd se tendra q cambiar el tipo de dato en mysq
+
+#ACCESS
+Para hacer una consulta
+-Pestaña crear
+-Diseño de consulta
+
+#SUBCONSULTAS
+-Una consulta dentro de otra consulta
+* ESCALONADA          --->    La consulta interna devuelve una unica columna o un unico registro
+* DE LISTA            --->    Devuelve una lista de registros
+-Suelen utilizarse los operadores in, any y all
+* CORRELACIONADA      --->    
+
+#EJEMPLOS
+-SELECT NOMBREARTÍCULO, SECCIÓN, PRECIO FROM PRODUCTOS WHERE SECCIÓN = "CERÁMICA"
+-SELECT NOMBREARTÍCULO, SECCIÓN, PRECIO FROM PRODUCTOS WHERE SECCIÓN = "CERÁMICA" OR SECCIÓN = "DEPORTES"
+-SELECT NOMBREARTÍCULO, SECCIÓN, PRECIO FROM PRODUCTOS WHERE SECCIÓN ="DEPORTES" AND PAÍSDEORIGEN = "USA"
+-SELECT * FROM PRODUCTOS WHERE SECCIÓN ="DEPORTES" AND PAÍSDEORIGEN = "USA"
+-SELECT * FROM PRODUCTOS WHERE PRECIO > 300
+-SELECT * FROM PRODUCTOS WHERE PRECIO < 30
+-SELECT * FROM PRODUCTOS
+WHERE FECHA BETWEEN  #01/05/2000# And #30/04/2000#
+-SELECT * FROM PRODUCTOS WHERE SECCIÓN = 'DEPORTES' OR SECCIÓN = 'CERÁMICA' ORDER BY SECCIÓN (DESC/ASC)
+- SELECT * FROM PRODUCTOS WHERE SECCIÓN = 'DEPORTES' OR SECCIÓN = 'CERÁMICA' ORDER BY SECCIÓN, PRECIO (Primero ordena la sección y dentro de esta ordena por precio)
+- SELECT * FROM PRODUCTOS WHERE SECCIÓN = 'DEPORTES' OR SECCIÓN = 'CERÁMICA' ORDER BY SECCIÓN, PAÍSDEORIGEN, PRECIO
+- SELECT SECCIÓN, SUM(PRECIO) FROM PRODUCTOS GROUP BY SECCIÓN
+- SELECT SECCIÓN, SUM(PRECIO) AS 'TOTALES' FROM PRODUCTOS GROUP BY SECCIÓN ORDER BY TOTALES
+- SELECT SECCIÓN, AVG(PRECIO) AS PROMEDIO FROM PRODUCTOS  GROUP BY SECCIÓN *HAVING* SECCIÓN = 'CERÁMICA' OR SECCIÓN = 'DEPORTES' ORDER BY PROMEDIO
+*HAVING sustituye a where en las consultas de agrupación
+- SELECT POBLACIÓN, COUNT(CÓDIGOCLIENTE) AS N_CLIENTES FROM CLIENTES GROUP BY POBLACIÓN
+- SELECT SECCIÓN, MAX(PRECIO) AS 'PRECIO MÁXIMO' FROM PRODUCTOS WHERE SECCIÓN = 'CONFECCIÓN' GROUP BY SECCIÓN
+- SELECT NOMBREARTÍCULO, SECCIÓN, PRECIO, PRECIO*1.16 AS 'PRECIO CON IVA' FROM PRODUCTOS
+- SELECT NOMBREARTÍCULO, SECCIÓN, PRECIO, ROUND(PRECIO*1.16, 2) AS 'PRECIO CON IVA' FROM PRODUCTOS
+- SELECT NOMBREARTÍCULO, SECCIÓN, PRECIO, PRECIO-3 AS 'PRECIO CON DESCUENTO' FROM PRODUCTOS
+- SELECT NOMBREARTÍCULO, SECCIÓN, PRECIO, FECHA FROM PRODUCTOS WHERE SECCIÓN = 'DEPORTES'
+- SELECT NOMBREARTÍCULO, SECCIÓN, PRECIO, FECHA, NOW() AS 'FECHA Y HORA ACTUAL' FROM PRODUCTOS WHERE SECCIÓN = 'DEPORTES'
+- SELECT NOMBREARTÍCULO, SECCIÓN, PRECIO, FECHA, NOW() AS 'FECHA ACTUAL', DATEDIFF("YYYY", FECHA, NOW()) AS DIFERENCIA FROM PRODUCTOS WHERE SECCIÓN = 'DEPORTES'
+- SELECT NOMBREARTÍCULO, SECCIÓN, PRECIO, FECHA, FORMAT(NOW(), 'SHORT DATE') AS 'FECHA ACTUAL', DATEDIFF("YYYY", FECHA, NOW()) AS DIFERENCIA FROM PRODUCTOS WHERE SECCIÓN = 'DEPORTES'
+- SELECT * FROM PRODUCTOS WHERE SECCIÓN = 'DEPORTES' 
+UNION 
+SELECT * FROM ProductosNuevos WHERE SECCIÓN = 'DEPORTES DE RIESGO'ORDER BY SECCIÓN
+- SELECT *  FROM PRODUCTOS WHERE PRECIO > 500 
+UNION 
+SELECT * FROM ProductosNuevos WHERE SECCIÓN = 'ALTA COSTURA'
+- SELECT *  FROM PRODUCTOS 
+UNION 
+SELECT * FROM ProductosNuevos
+(NO APARECE EL REPETIDO)
+- SELECT *  FROM PRODUCTOS 
+UNION  ALL
+SELECT * FROM ProductosNuevos
+(APARECE EL REPETIDO)
+- SELECT * FROM CLIENTES INNER JOIN SELECT * FROM PEDIDOS
+- SELECT * FROM CLIENTES INNER JOIN PEDIDOS ON CLIENTES.[CÓDIGOCLIENTE] = PEDIDOS.[CÓDIGO CLIENTE] WHERE POBLACIÓN = 'MADRID'
+- SELECT NOMBREARTÍCULO, SECCIÓN FROM PRODUCTOS WHERE PRECIO > (SELECT AVG(PRECIO) FROM PRODUCTOS)<--SUBCONSULTA ESCALONADA(SELECT AVG(PRECIO) FROM PRODUCTOS)
+- SELECT * FROM PRODUCTOS WHERE PRECIO > ALL (SELECT PRECIO FROM PRODUCTOS WHERE SECCIÓN = 'CERÁMICA')<--SUBCONSULTA DE LISTA(SELECT PRECIO FROM PRODUCTOS WHERE SECCIÓN = 'CERÁMICA')
+- SELECT * FROM PRODUCTOS WHERE PRECIO > ANY (SELECT PRECIO FROM PRODUCTOS WHERE SECCIÓN = 'CERÁMICA')<--SUBCONSULTA DE LISTA(SELECT PRECIO FROM PRODUCTOS WHERE SECCIÓN = 'CERÁMICA')
+- SELECT * FROM PRODUCTOS WHERE PRECIO > ALL (SELECT PRECIO FROM PRODUCTOS WHERE SECCIÓN = 'JUGUETERÍA')
+- SELECT * FROM PRODUCTOS WHERE PRECIO > ANY (SELECT PRECIO FROM PRODUCTOS WHERE SECCIÓN = 'JUGUETERÍA')
+- SELECT NOMBREARTÍCULO, PRECIO FROM PRODUCTOS WHERE CÓDIGOARTÍCULO IN (SELECT [CÓDIGO ARTÍCULO] FROM [PRODUCTOS- PEDIDOS] WHERE UNIDADES > 20) 
+o 
+SELECT NOMBREARTÍCULO, PRECIO FROM PRODUCTOs INNER JOIN [PRODUCTOS- PEDIDOS] ON PEDIDOS.CÓDIGOARTÍCULO = [PRODUCTOS- PEDIDOS].[CÓDIGO ARTÍCULO] WHERE UNIDADES > 20 sino estuvieran relacionadas
+- SELECT EMPRESA, POBLACIÓN FROM CLIENTES WHERE CÓDIGOCLIENTE NOT IN (SELECT [CÓDIGO CLIENTE] FROM PEDIDOS WHERE [FORMA DE PAGO] = 'TARJETA')
+- UPDATE PRODUCTOS SET PRECIO = PRECIO+10 WHERE SECCIÓN = 'DEPORTES'
+**No se puede deshacer la acción, en caso de requerirla se tendria que hacer una consulta inversa
+- UPDATE PRODUCTOS SET SECCIÓN = 'ART. DEPORTIVOS' WHERE SECCIÓN = 'DEPORTES'
+- SELECT * INTO CLIENTES_MADRID FROM CLIENTES WHERE POBLACIÓN = 'MADRID'
+O
+En MYSQL
+CREATE TABLE NOMBRENUEVATABLA SELECT * FROM CLIENTES WHERE POBLACIÓN = 'MADRID'
+- DELETE FROM CLIENTES WHERE POBLACIÓN = 'MADRID'
+- SELECT EMPRESA FROM CLIENTES INNER JOIN PEDIDOS ON CLIENTES.CÓDIGOCLIENTE = PEDIDOS.[CÓDIGO CLIENTE]
+- SELECT DISTINCT EMPRESA FROM CLIENTES INNER JOIN PEDIDOS ON CLIENTES.CÓDIGOCLIENTE = PEDIDOS.[CÓDIGO CLIENTE]
+- DELETE DISTINCTROW CLIENTES.*, PEDIDOS.CÓDIGOCLIENTE FROM CLIENTES LEFT JOIN PEDIDOS ON CLIENTES.[CODIGO CLIENTE] = PEDIDOS.CÓDIGOCLIENTE WHERE PEDIDOS.CÓDIGOCLIENTE IS NULL
+- INSERT INTO CLIENTES 
+SELECT * FROM CLIENTES_MADRID
+- INSERT INTO CLIENTES (CÓDIGOCLIENTE,  EMPRESA, POBLACIÓN, TELÉFONO)
+SELECT CÓDIGOCLIENTE,  EMPRESA, POBLACIÓN, TELÉFONO FROM CLIENTES_MADRID (En estas consultas se debe respetar los campos clave)
+- INSERT INTO CLIENTES ( EMPRESA, POBLACIÓN, TELÉFONO)
+SELECT  EMPRESA, POBLACIÓN, TELÉFONO FROM CLIENTES_MADRID #ERROR
+- TRANSFORM SUM(PRECIO) AS TOTAL
+SELECT NOMBREARTÍCULO FROM PRODUCTOS
+GROUP BY NOMBREARTÍCULO
+PIVOT SECCIÓN
+ó
+TRANSFORM SUM(PRECIO) AS TOTAL
+SELECT SECCIÓN FROM PRODUCTOS
+GROUP BY SECCIÓN
+PIVOT NOMBREARTÍCULO
+- TRANSFORM AVG(PRECIO) AS TOTAL
+SELECT NOMBREARTÍCULO FROM PRODUCTOS
+GROUP BY NOMBREARTÍCULO
+PIVOT SECCIÓN
+
+- TRANSFORM COUNT(PRECIO) AS TOTAL
+SELECT NOMBREARTÍCULO FROM PRODUCTOS
+GROUP BY NOMBREARTÍCULO
+PIVOT SECCIÓN
+REFERENCIA CRUZADA
+- 1) SELECT EMPRESA, POBLACIÓN, FORMADEPAGO
+FROM CLIENTES INNER JOIN ON CLIENTES.CÓDIGOCLIENTE = PEDIDOS.[CÓDIGO CLIENTE]
+- 2) guardar previa
+- 3) TRANSFORM COUNT([FORMA DE PAGO]) AS TOTALES
+SELECT EMPRESA FROM previa GROUP BY EMPRESA
+PIVOT POBLACIÓN
+- TRANSFORM COUNT(POBLACIÓN) AS TOTAL_FORMAPAGO
+SELECT EMPRESA FROM previa GROUP BY EMPRESA
+PIVOT [FORMA DE PAGO]
+- TRANSFORM SUM(PRECIO) AS TOTAL
+SELECT NOMBREARTÍCULO, PAÍSDEORIGEN FROM PRODUCTOS GROUP BY NOMBREARTÍCULO, PAÍSDEORIGEN
+PIVOT SECCIÓN
+- CREATE TABLE PRUEBA (NOMBRE VARCHAR(30))
+- DROP TABLE PRUEBA
+- CREATE TABLE PRUEBA (NOMBRE TEXT(20), APELLIDO TEXT(20), EDAD BYTE, NACIMIENTO DATE, INE BIT)
+- CREATE TABLE PRUEBA2 (ID COUNTER, NOMBRE TEXT(20), APELLIDO TEXT(20), EDAD BYTE, NACIMIENTO DATE, INE BIT)
+En MYSQL
+INT AUTO_INCREMENT
+- CREATE TABLE PRUEBA3 (ID COUNTER primary_key, NOMBRE TEXT(20), APELLIDO TEXT(20), EDAD BYTE, NACIMIENTO DATE, INE BIT)
+- ALTER TABLE CLIENTES_MADRID ADD COLUMN FECHA_BAJA DATE
+- ALTER TABLE PRUEBA ADD COLUMN POBLACIÓN TEXT
+- ALTER TABLE PRUEBA DROP COLUMN POBLACIÓN
+- ALTER TABLE CLIENTES_MADRID DROP COLUMN FECHA_BAJA
+- ALTER TABLE CLIENTES_MADRID ADD COLUMN FECHA TEXT
+- ALTER TABLE CLIENTES_MADRID ALTER COLUMN FECHA DATE
+- CREATE TABLE EJEMPLO (DNI TEXT, NOMBRE TEXT, APELLIDO TEXT, EDAD NUMBER, PRIMARY KEY(DNI))
+- ALTER TABLE EJEMPLO ADD PRIMARY KEY (DNI)     --->    INDICE PRIMARIO
+- ALTER TABLE EJEMPLO ADD PRIMARY KEY (NOMBRE, APELLIDO)     --->    INDICE PRIMARIO
+-CREATE INDEX MIINDICE ON EJEMPLO (APELLIDO)      --->    INDICE ORDINARIO
+- CREATE UNIQUE INDEX MIINDICE ON EJEMPLO (APELLIDO)      --->    INDICE ÚNICO
+- CREATE UNIQUE INDEX MIINDICE ON EJEMPLO (NOMBRE, APELLIDO)      --->    INDICE COMPUESTO
+- DROP INDEX MIINDICE ON EJEMPLO
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+*FECHAS
+MYSQL 'YYYY-MM-DD'
+ACCESS #formato#
+SQLSERVER #MM-DD-YYYY#
+
+
+
+#EJERCICIOS
+
+-V3
+1) SELECT EMPRESA, POBLACIÓN FROM CLIENTES
+2) SELECT * FROM PRODUCTOS WHERE SECCIÓN = 'CERÁMICA'
+3) SELECT NOMBREARTÍCULO, PRECIO FROM PRODUCTOS WHERE SECCIÓN = 'DEPORTES' AND PRECIO > 100 AND PRECIO < 200
+SELECT NOMBREARTÍCULO, PRECIO FROM PRODUCTOS WHERE SECCIÓN = 'DEPORTES' AND PRECIO BETWEEN 100 AND 200
+4) SELECT * FROM PRODUCTOS WHERE PAÍSDEORIGEN <> 'ESPAÑA'
+5) SELECT * FROM PRODUCTOS WHERE SECCIÓN = 'DEPORTES' OR PRECIO > 350
+6) SELECT NOMBREARTICULO, SECCIÓN, FECHA FROM PRODUCTOS WHERE FECHA BETWEEN #01/05/2001# AND #15/12/2001#
+
+-V4
+1) SELECT * FROM PRODUCTOS WHERE PAÍSDEORIGEN = 'ESPAÑA' AND FECHA BETWEEN #01/02/2002# AND #31/05/2002# ORDER BY 'NOMBREARTÍCULO' DESC
+SELECT * FROM PRODUCTOS WHERE PAÍSDEORIGEN = 'ESPAÑA' AND FECHA >= #01/02/2002# AND FECHA <= #31/05/2002# ORDER BY 'NOMBREARTÍCULO' DESC
+2) SELECT EMPRESA, DIRECCIÓN, POBLACIÓN FROM CLIENTES ORDER BY POBLACIÓN, DIRECCIÓN DESC
+3) SELECT * FROM CLIENTES ORDER BY POBLACIÓN
+
+-V5
+1) SELECT DIRECCIÓN, TELÉFONO, POBLACIÓN AS 'RESIDENCIA' FROM CLIENTES ORDER BY POBLACIÓN DESC
+2) SELECT POBLACIÓN FROM CLIENTES GROUP BY POBLACIÓN
+3) SELECT SECCIÓN, AVG(PRECIO) FROM PRODUCTOS
+4) SELECT SECCIÓN, AVG(PRECIO) AS 'MEDIA POR SECCIÓN' FROM PRODUCTOS WHERE SECCIÓN <> 'JUGUETERÍA' GROUP BY SECCIÓN
+5) SELECT SECCIÓN, COUNT(NOMBREARTÍCULO) AS 'COUNT' FROM PRODUCTOS WHERE SECCIÓN = 'DEPORTES' GROUP BY SECCIÓN 
+
+-V6
+1) SELECT NOMBREARTÍCULO, SECCIÓN, PRECIO, ROUND(PRECIO-(PRECIO*.07) AS 'PRECIO CON DESCUENTO' FROM PRODUCTOS 
+2) SELECT FECHA, SECCIÓN, NOMBREARTÍCULO, PRECIO, ROUND(PRECIO-2, 2) AS 'DTO 2E EN CERÁMICA' FROM PRODUCTOS WHERE SECCIÓN ='CERÁMICA' ORDER BY FECHA DESC
+3) SELECT NOMBREARTÍCULO, SECCIÓN, PRECIO, ROUND(PRECIO*1.02, 2) AS 'PRECIO AUMENTADO 2%' FROM PRODUCTOS WHERE SECCIÓN = 'FERRETERÍA'
+
+-V12
+1) SELECT * INTO CLIENTES_MADRID FROM CLIENTES WHERE POBLACIÓN = 'MADRID'
+2) SELECT * INTO [ARTICULOS DEPORTES] FROM PRODUCTOS WHERE SECCIÓN  = 'ART. DEPORTI'
+3) UPDATE PRODUCTOS SET PRECIO = PRECIO*1.21 WHERE SECCIÓN = 'ART. DEPORTI'
+4) UPDATE [PEDIDOS POR TARJETA] SET DESCUENTO = 0.05 WHERE DESCUENTO < 0.05
+
+-V15
+1) 
+TRANSFORM COUNT(NOMBREARTÍCULO) AS CuentaDeCÓDIGOARTÍCULO
+SELECT PAÍSDEORIGEN, COUNt(CÓDIGOARTÍCULO) AS TOTAL FROM PRODUCTOS
+WHERE Format([FECHA],"yyyy") <> 2015
+GROUP BY PAÍSDEORIGEN
+PIVOT Format(FECHA, "yyyy")
+2)
+- SELECT CÓDIGOARTÍCULO, IMPORTADO, ENVIADO FROM PRODUCTOS INNER JOIN (PEDIDOS INNER JOIN [PRODUCTOS- PEDIDOS] ON PEDIDOS.[NÚMERO DE PEDIDO] = [PRODUCTOS- PEDIDOS].[NÚMERO DE PEDIDO]) ON PRODUCTOS.CÓDIGOARTÍCULO = [PRODUCTOS- PEDIDOS].[CÓDIGO ARTÍCULO]
+- Guardar previa2
+- TRANSFORM COUNT(CÓDIGOARTÍCULO) AS CUENTA_CA
+SELECT IMPORTADO FROM previa2 GROUP BY IMPORTADO
+PIVOT ENVIADO
+
+-V
+1)
+2)
+3)
+4)
+
+-V
+1)
+2)
+3)
+4)
+
+-V
+1)
+2)
+3)
+4)
+
+-V
+1)
+2)
+3)
+4)
+
+-V
+1)
+2)
+3)
+4)
+
+-V
+1)
+2)
+3)
+4)
+
+-V
+1)
+2)
+3)
+4)
+
+
+CREATE DATABASE IF NOT EXISTS pruebas;
+USE pruebas;
+
+
+CREATE TABLE tblUsuarios (
+   idx INT PRIMARY KEY AUTO_INCREMENT,
+   usuario VARCHAR(20),
+   nombre VARCHAR(20),
+   sexo VARCHAR(1),
+   nivel TINYINT,
+   email VARCHAR(50),
+   telefono VARCHAR(20),
+   marca VARCHAR(20),
+   compañia VARCHAR(20),
+   saldo FLOAT,
+   activo BOOLEAN
+);
+
+INSERT INTO tblUsuarios 
+VALUES 
+('1','BRE2271','BRENDA','M','2','brenda@live.com','655-330-5736','SAMSUNG','IUSACELL','100','1'),
+('2','OSC4677','OSCAR','H','3','oscar@gmail.com','655-143-4181','LG','TELCEL','0','1'),
+('3','JOS7086','JOSE','H','3','francisco@gmail.com','655-143-3922','NOKIA','MOVISTAR','150','1'),
+('4','LUI6115','LUIS','H','0','enrique@outlook.com','655-137-1279','SAMSUNG','TELCEL','50','1'),
+('5','LUI7072','LUIS','H','1','luis@hotmail.com','655-100-8260','NOKIA','IUSACELL','50','0'),
+('6','DAN2832','DANIEL','H','0','daniel@outlook.com','655-145-2586','SONY','UNEFON','100','1'),
+('7','JAQ5351','JAQUELINE','M','0','jaqueline@outlook.com','655-330-5514','BLACKBERRY','AXEL','0','1'),
+('8','ROM6520','ROMAN','H','2','roman@gmail.com','655-330-3263','LG','IUSACELL','50','1'),
+('9','BLA9739','BLAS','H','0','blas@hotmail.com','655-330-3871','LG','UNEFON','100','1'),
+('10','JES4752','JESSICA','M','1','jessica@hotmail.com','655-143-6861','SAMSUNG','TELCEL','500','1'),
+('11','DIA6570','DIANA','M','1','diana@live.com','655-143-3952','SONY','UNEFON','100','0'),
+('12','RIC8283','RICARDO','H','2','ricardo@hotmail.com','655-145-6049','MOTOROLA','IUSACELL','150','1'),
+('13','VAL6882','VALENTINA','M','0','valentina@live.com','655-137-4253','BLACKBERRY','AT&T','50','0'),
+('14','BRE8106','BRENDA','M','3','brenda2@gmail.com','655-100-1351','MOTOROLA','NEXTEL','150','1'),
+('15','LUC4982','LUCIA','M','3','lucia@gmail.com','655-145-4992','BLACKBERRY','IUSACELL','0','1'),
+('16','JUA2337','JUAN','H','0','juan@outlook.com','655-100-6517','SAMSUNG','AXEL','0','0'),
+('17','ELP2984','ELPIDIO','H','1','elpidio@outlook.com','655-145-9938','MOTOROLA','MOVISTAR','500','1'),
+('18','JES9640','JESSICA','M','3','jessica2@live.com','655-330-5143','SONY','IUSACELL','200','1'),
+('19','LET4015','LETICIA','M','2','leticia@yahoo.com','655-143-4019','BLACKBERRY','UNEFON','100','1'),
+('20','LUI1076','LUIS','H','3','luis2@live.com','655-100-5085','SONY','UNEFON','150','1'),
+('21','HUG5441','HUGO','H','2','hugo@live.com','655-137-3935','MOTOROLA','AT&T','500','1');
+
+
+
+#Listar los nombres de los usuarios
+select nombre from tblUsuarios;
+#Calcular el saldo máximo de los usuarios de sexo “Mujer”
+select max(saldo) as 'Saldo Máximo' from tblUsuarios;
+#select nombre, saldo from tblUsuarios where saldo = max(saldo); <-- subconsulta
+#Listar nombre y teléfono de los usuarios con teléfono NOKIA, BLACKBERRY o SONY
+select nombre, telefono, marca from tblUsuarios where marca = 'NOKIA' or marca = 'BLACKBERRY' or marca = 'SONY';
+#Contar los usuarios sin saldo o inactivos
+select count(idx) from tblUsuarios where saldo = '0' or activo = '0';
+#Listar el login de los usuarios con nivel 1, 2 o 3
+select usuario, nivel from tblUsuarios where nivel != '0';
+#Listar los números de teléfono con saldo menor o igual a 300
+select nombre, telefono, saldo from tblUsuarios where saldo <= '300'; 
+#Calcular la suma de los saldos de los usuarios de la compañia telefónica NEXTEL
+select sum(saldo) from tblUsuarios;
+#Contar el número de usuarios por compañía telefónica
+select compañia, count(idx) from tblUsuarios group by compañia;
+#Contar el número de usuarios por nivel
+select nivel, count(idx) from tblUsuarios group by nivel order by nivel asc;
+#Listar el login de los usuarios con nivel 2
+select nombre, usuario, nivel from tblUsuarios where nivel = '2';
+#Mostrar el email de los usuarios que usan gmail
+select email from tblUsuarios where email like '%gmail%';
+#Listar nombre y teléfono de los usuarios con teléfono LG, SAMSUNG o MOTOROLA
+select nombre, telefono, marca from tblUsuarios where marca = 'LG' or marca = 'SAMSUNG' or marca = 'MOTOROLA';
+#Listar nombre y teléfono de los usuarios con teléfono que no sea de la marca LG o SAMSUNG
+SELECT nombre, telefono, marca FROM tblUsuarios WHERE marca NOT IN('LG', 'SAMSUNG');
+#Listar el login y teléfono de los usuarios con compañia telefónica IUSACELL
+select usuario, telefono, compañia from tblUsuarios where compañia = 'IUSACELL';
+#Listar el login y teléfono de los usuarios con compañia telefónica que no sea TELCEL
+select usuario, telefono, compañia from tblUsuarios where compañia != 'TELCEL';
+select usuario, telefono, compañia from tblUsuarios where compañia <> 'TELCEL';
+#Calcular el saldo promedio de los usuarios que tienen teléfono marca NOKIA
+select marca, avg(saldo) as 'Saldo usuarios nokia' from tblUsuarios where marca = "NOKIA";
+#Listar el login y teléfono de los usuarios con compañia telefónica IUSACELL o AXEL
+select usuario, telefono, compañia from tblUsuarios where compañia = 'IUSACELL' or compañia = 'AXEL';
+#Mostrar el email de los usuarios que no usan yahoo
+select email from tblUsuarios where email not like '%yahoo%';
+#Listar el login y teléfono de los usuarios con compañia telefónica que no sea TELCEL o IUSACELL
+select usuario, telefono, compañia from tblUsuarios where compañia not in ('TELCEL', 'IUSACELL');
+#Listar el login y teléfono de los usuarios con compañia telefónica UNEFON
+select usuario, telefono from tblUsuarios where compañia = 'UNEFON';
+#Listar las diferentes marcas de celular en orden alfabético descendentemente
+select distinct marca from tblUsuarios order by marca;
+#Listar las diferentes compañias en orden alfabético aleatorio
+select distinct compañia from tblUsuarios;
+#Listar el login de los usuarios con nivel 0 o 2
+select usuario from tblUsuarios where nivel = '0' or nivel = '2';
+#calcular el saldo promedio de los usuarios que tienen teléfono marca LG
+select avg(saldo) as 'Saldo usuarios con LG' from tblUsuarios where marca = 'LG';
+#Listar el login de los usuarios con nivel 1 o 3
+#Listar nombre y teléfono de los usuarios con teléfono que no sea de la marca BLACKBERRY
+#Listar el login de los usuarios con nivel 3
+#Listar el login de los usuarios con nivel 0
+#Listar el login de los usuarios con nivel 1
+#Contar el número de usuarios por sexo
+#Listar el login y teléfono de los usuarios con compañia telefónica AT&T
+#Listar las diferentes compañias en orden alfabético descendentemente
+#Listar el logn de los usuarios inactivos
+#Listar los números de teléfono sin saldo
+#Calcular el saldo mínimo de los usuarios de sexo “Hombre”
+#Listar los números de teléfono con saldo mayor a 300
+#Contar el número de usuarios por marca de teléfono
+#Listar nombre y teléfono de los usuarios con teléfono que no sea de la marca LG
+#Listar las diferentes compañias en orden alfabético ascendentemente
+#Calcular la suma de los saldos de los usuarios de la compañia telefónica UNEFON
+#Mostrar el email de los usuarios que usan hotmail
+#Listar los nombres de los usuarios sin saldo o inactivos
+#Listar el login y teléfono de los usuarios con compañia telefónicaIUSACELL o TELCEL
+#Listar las diferentes marcas de celular en orden alfabético ascendentemente
+#Listar las diferentes marcas de celular en orden alfabético aleatorio
+#Listar el login y teléfono de los usuarios con compañia telefónica IUSACELL o UNEFON
+#Listar nombre y teléfono de los usuarios con teléfono que no sea de la marca MOTOROLA o NOKIA
+#Calcular la suma de los saldos de los usuarios de la compañia telefónica TELCEL
